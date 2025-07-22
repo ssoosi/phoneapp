@@ -1,0 +1,123 @@
+<!-- Contact List Container -->
+<div class="contact-list-container">
+  
+  <!-- Header Section -->
+  <div class="header-section">
+    <h2 class="page-title">
+      <mat-icon>contacts</mat-icon>
+      Contacts
+    </h2>
+    
+    <!-- Search Bar -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search contacts</mat-label>
+      <input matInput 
+             [(ngModel)]="searchTerm" 
+             (keyup)="search()" 
+             placeholder="Name or phone number..."
+             autocomplete="off">
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-hint *ngIf="contacts.length > 0">{{contacts.length}} contact(s) found</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading contacts...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && contacts.length === 0 && searchTerm" class="empty-state">
+    <mat-icon class="empty-icon">search_off</mat-icon>
+    <h3>No contacts found</h3>
+    <p>Try adjusting your search terms</p>
+    <button mat-stroked-button (click)="clearSearch()">
+      <mat-icon>clear</mat-icon>
+      Clear Search
+    </button>
+  </div>
+
+  <!-- Contact List -->
+  <div *ngIf="!isLoading && contacts.length > 0" class="contacts-container">
+    <mat-card *ngFor="let contact of contacts; trackBy: trackByContactId" 
+              class="contact-card"
+              [class.highlighted]="contact.highlighted">
+      
+      <mat-card-content class="contact-content">
+        
+        <!-- Avatar -->
+        <div class="avatar-container">
+          <mat-icon class="contact-avatar" [style.background-color]="getAvatarColor(contact.name)">
+            person
+          </mat-icon>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h3 class="contact-name" [innerHTML]="highlightSearchTerm(contact.name)"></h3>
+          <p class="contact-phone">
+            <mat-icon class="phone-icon">phone</mat-icon>
+            <span [innerHTML]="highlightSearchTerm(contact.phoneNumber)"></span>
+          </p>
+          <p *ngIf="contact.email" class="contact-email">
+            <mat-icon class="email-icon">email</mat-icon>
+            <span [innerHTML]="highlightSearchTerm(contact.email)"></span>
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="contact-actions">
+          <button mat-icon-button 
+                  matTooltip="Call" 
+                  (click)="callContact(contact)"
+                  color="primary">
+            <mat-icon>call</mat-icon>
+          </button>
+          
+          <button mat-icon-button 
+                  matTooltip="Message" 
+                  (click)="messageContact(contact)"
+                  color="accent">
+            <mat-icon>message</mat-icon>
+          </button>
+          
+          <button mat-icon-button 
+                  [matMenuTriggerFor]="contactMenu"
+                  matTooltip="More options">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          
+          <!-- Context Menu -->
+          <mat-menu #contactMenu="matMenu">
+            <button mat-menu-item (click)="editContact(contact)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="shareContact(contact)">
+              <mat-icon>share</mat-icon>
+              <span>Share</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="deleteContact(contact)" class="delete-option">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </div>
+        
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Floating Action Button -->
+  <div *ngFor="let contact of contacts">
+  <button mat-fab 
+          class="fab-button"
+          color="primary"
+          matTooltip="Add new contact"
+        (click)="addNewContact(contact)">
+    <mat-icon>add</mat-icon>
+  </button>
+
+</div>

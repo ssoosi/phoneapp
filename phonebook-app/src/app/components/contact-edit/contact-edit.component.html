@@ -1,0 +1,60 @@
+<div class="contact-list-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h2 class="page-title">
+      <mat-icon>contacts</mat-icon>
+      Contacts
+    </h2>
+    
+  </div>
+<mat-card class="contact-card">
+
+    <mat-card-title>
+      <mat-icon>{{ isEditMode ? 'edit' : 'add' }}</mat-icon>
+      {{ isEditMode ? 'Edit Contact' : 'Add New Contact' }}
+    </mat-card-title>
+  
+    <mat-card-content>
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="spinner-wrapper">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Processing...</p>
+      </div>
+  
+      <!-- Alerts -->
+      <mat-card *ngIf="errorMessage" class="alert error">{{ errorMessage }}</mat-card>
+      <mat-card *ngIf="successMessage" class="alert success">{{ successMessage }}</mat-card>
+  
+      <!-- Form -->
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+          <mat-error *ngIf="isFieldInvalid('name')">{{ getFieldError('name') }}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+          <mat-error *ngIf="isFieldInvalid('email')">{{ getFieldError('email') }}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Phone</mat-label>
+          <input matInput type="tel" formControlName="phoneNumber" />
+          <mat-error *ngIf="isFieldInvalid('phoneNumber')">{{ getFieldError('phoneNumber') }}</mat-error>
+        </mat-form-field>
+  
+        <!-- Buttons -->
+        <div class="form-actions">
+          <button mat-stroked-button color="warn" type="button" (click)="onCancel()" [disabled]="isLoading">
+            Cancel
+          </button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="isLoading || contactForm.invalid">
+            {{ isEditMode ? 'Update Contact' : 'Create Contact' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

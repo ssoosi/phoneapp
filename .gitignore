@@ -1,0 +1,42 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/phonebook-app/dist
+/phonebook-app/tmp
+/phonebook-app/out-tsc
+/phonebook-app/bazel-out
+
+# Node
+/phonebook-app/node_modules
+/phonebook-app/npm-debug.log
+/phonebook-app/yarn-error.log
+
+# IDEs and editors
+/phonebook-app/.idea/
+/phonebook-app/.project
+/phonebook-app/.classpath
+/phonebook-app/.c9/
+/phonebook-app/*.launch
+/phonebook-app/.settings/
+/phonebook-app/*.sublime-workspace
+
+# Visual Studio Code
+/phonebook-app/.vscode/*
+!/phonebook-app/.vscode/settings.json
+!/phonebook-app/.vscode/tasks.json
+!/phonebook-app/.vscode/launch.json
+!/phonebook-app/.vscode/extensions.json
+/phonebook-app/.history/*
+
+# Miscellaneous
+/phonebook-app/.angular/cache
+/phonebook-app/.sass-cache/
+/phonebook-app/connect.lock
+/phonebook-app/coverage
+/phonebook-app/libpeerconnection.log
+/phonebook-app/testem.log
+/phonebook-app/typings
+
+# System files
+/phonebook-app/.DS_Store
+/phonebook-app/Thumbs.db

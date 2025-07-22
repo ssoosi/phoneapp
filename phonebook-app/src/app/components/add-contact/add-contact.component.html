@@ -1,0 +1,72 @@
+
+<div class="contact-list-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h2 class="page-title">
+      <mat-icon>contacts</mat-icon>
+      Contacts
+    </h2>
+    
+  </div>
+<mat-card class="contact-card">
+
+    <mat-card-title>
+      <mat-icon>add</mat-icon>
+      Add New Contact
+    </mat-card-title>
+  
+    <mat-card-content>
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="spinner-wrapper">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Processing...</p>
+      </div>
+  
+      <!-- Alerts -->
+      <mat-card *ngIf="errorMessage" class="alert error">
+        <mat-icon>error</mat-icon>
+        {{ errorMessage }}
+      </mat-card>
+      <mat-card *ngIf="successMessage" class="alert success">
+        <mat-icon>check_circle</mat-icon>
+        {{ successMessage }}
+      </mat-card>
+  
+      <!-- Form -->
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter full name" />
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="isFieldInvalid('name')">{{ getFieldError('name') }}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Enter email address" />
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="isFieldInvalid('email')">{{ getFieldError('email') }}</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput type="tel" formControlName="phoneNumber" placeholder="Enter phone number" />
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="isFieldInvalid('phoneNumber')">{{ getFieldError('phoneNumber') }}</mat-error>
+        </mat-form-field>
+  
+        <!-- Buttons -->
+        <div class="form-actions">
+          <button mat-stroked-button color="warn" type="button" (click)="onCancel()" [disabled]="isLoading">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="isLoading || contactForm.invalid">
+            <mat-icon>add_circle</mat-icon>
+            Add Contact
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
