@@ -1,4 +1,4 @@
-# 📱 Phonebook App (Frontend - Angular and Backend DotNet)
+# 📱 Phonebook App (Frontend - Angular and Backend .NET)
 
 This is the **Angular frontend** of the Phonebook Application, designed to interact with a .NET Core Web API backend. It allows users to manage their phonebook contacts efficiently with a user-friendly interface powered by **Angular Material**.
 
